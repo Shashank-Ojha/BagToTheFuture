@@ -1,0 +1,20 @@
+var fs = require('fs')
+var request = require('request');
+var _ = require('underscore');
+
+var API_KEY = '6190149b72a16921918db0d3f518ef84';
+var URL = 'http://api.reimaginebanking.com';
+// var MERCHANTS = JSON.parse(fs.readFileSync('merchants.json', 'utf8'));
+
+fs.readFile('message.txt', function read(err, data) {
+    if (err) {
+        throw err;
+    }
+    content = data;
+
+    // Invoke the next step here however you like
+    console.log(content);   // Put all of the code here (not the best solution)
+});
+
+
+// request.post('http://api.reimaginebanking.com/accounts/56c66be6a73e492741507f48/purchases?key=63aa41c26d33b0839a5675ed67f0ea6d').form(obj);

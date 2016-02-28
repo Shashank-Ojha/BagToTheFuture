@@ -1,0 +1,15 @@
+{ "merchant_id": '56d1cb92480cf02f0f888bd9',
+  "medium": 'balance',
+  "purchase_date": '12-31-2016',
+  "amount": 3.07,
+  "status": 'pending',
+  "description": 'Nacho Cheese Doritos' }
+
+{
+  "merchant_id": "56d1cb92480cf02f0f888bd9",
+  "medium": "balance",
+  "purchase_date": "2016-02-28",
+  "amount": 0,
+  "status": "pending",
+  "description": "string"
+}

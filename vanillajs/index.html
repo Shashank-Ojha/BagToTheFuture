@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en" data-framework="javascript">
+	<head>
+		<meta charset="utf-8">
+		<title>VanillaJS • TodoMVC</title>
+		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+		<style type="text/css">
+		.header
+		{
+/*			line-height: 10em;
+			width: 1000px;
+			margin-left: 20px;
+			margin-top: 10px;*/
+
+		}
+
+
+		</style>
+	</head>`
+	<body>
+		<section class="todoapp">
+			<header class="header">
+				<h1 style="color:black">Bag to the Future</h1>
+				<input class="new-todo" placeholder="What needs to be done?" autofocus>
+			</header>
+			<section class="main">
+				<input class="toggle-all" type="checkbox">
+				<label for="toggle-all">Mark all as complete</label>
+				<ul class="todo-list"></ul>
+			</section>
+			<footer class="footer">
+				<span class="todo-count"></span>
+				<ul class="filters">
+					<li>
+						<a href="#/" class="selected">All</a>
+					</li>
+					<li>
+						<a href="#/active">Active</a>
+					</li>
+					<li>
+						<a href="#/completed">Completed</a>
+					</li>
+				</ul>
+				<button class="clear-completed">Clear completed</button>
+			</footer>
+		</section>
+		<footer class="info">
+			<p>Double-click to edit a todo</p>
+			<p>Created by <a href="http://twitter.com/oscargodson">Oscar Godson</a></p>
+			<p>Refactored by <a href="https://github.com/cburgmer">Christoph Burgmer</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+		<script src="node_modules/todomvc-common/base.js"></script>
+		<script src="js/helpers.js"></script>
+		<script src="js/store.js"></script>
+		<script src="js/model.js"></script>
+		<script src="js/template.js"></script>
+		<script src="js/view.js"></script>
+		<script src="js/controller.js"></script>
+		<script src="js/app.js"></script>
+		<script> 
+
+			var patterns = { 'Gallon of Water': 2,
+							  'Milk': 6,
+							  'Nacho Cheese Doritos': 7,
+							  'Peanut Butter': 12,
+							  '10 lb Ice': 40,
+							  'Nature Made Ultra Strength Vitamin D3 Liquid Softgels 5000 IU': 62,
+							  'Tide Detergent': 63,
+							  'CVS Maximum Strength Laxative Tablets': 84,
+							  'Blues Buster Full Spectrum Light Bulb Clear': 344,
+							  'Birthday Candles': 365 };
+
+			function Clock() {
+
+				    var daysInAMonth = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+
+				    this.month = 1;
+				    this.day = 1;
+				    this.year = 2016;
+
+				    this.tick = function() {
+				        this.day += 1;
+
+				        if (this.day > daysInAMonth[this.month - 1]) {
+				            this.month += 1;
+				            this.day = 1;
+				        }
+
+				    }
+
+				    this.time = function() {
+				    	var month = this.month < 10 ? "0" + this.month : this.month;
+				    	var day = this.day < 10 ? "0" + this.day : this.day;
+				        console.log(`${this.year}-${month}-${day}`)
+				    }
+
+				    this.getTime = function() {
+				        var month = this.month < 10 ? "0" + this.month : this.month;
+				    	var day = this.day < 10 ? "0" + this.day : this.day;
+				        return `${this.year}-${month}-${day}`;
+				    }
+
+				}
+					products = [{
+						    productName: "Milk",
+						    merchantID: "56c66be6a73e492741507788",
+						    price: 5.99,
+						    days: 5,
+						    alpha: 1,
+						    daysSinceBought: 0
+						}, {
+						    productName: "10 lb Ice",
+						    merchantID: "56c66be6a73e492741507788",
+						    price: 3.99,
+						    days: 50,
+						    alpha: 5,
+						    daysSinceBought: 0
+						}, {
+						    productName: "Birthday Candles",
+						    merchantID: "56c66be6a73e492741507788",
+						    price: 4.99,
+						    days: 365,
+						    alpha: 5,
+						    daysSinceBought: 0
+						}, {
+						    productName: "Gallon of Water",
+						    merchantID: "56c66be6a73e492741507788",
+						    price: 2.99,
+						    days: 1,
+						    alpha: 0,
+						    daysSinceBought: 0
+						}, {
+						    productName: "CVS Maximum Strength Laxative Tablets",
+						    merchantID: "56c66be6a73e49274150762a",
+						    price: 29.99,
+						    days: 175,
+						    alpha: 10,
+						    daysSinceBought: 0
+						}, {
+						    productName: "Nature Made Ultra Strength Vitamin D3 Liquid Softgels 5000 IU",
+						    merchantID: "56c66be6a73e49274150762a",
+						    price: 19.99,
+						    days: 90,
+						    alpha: 9,
+						    daysSinceBought: 0
+						}, {
+						    productName: "Blues Buster Full Spectrum Light Bulb Clear",
+						    merchantID: "56c66be6a73e49274150762a",
+						    price: 6.49,
+						    days: 350,
+						    alpha: 15,
+						    daysSinceBought: 0
+						}, {
+						    productName: "Tide Detergent",
+						    merchantID: "56d1cb92480cf02f0f888bd9",
+						    price: 11.34,
+						    days: 90,
+						    alpha: 9,
+						    daysSinceBought: 0
+						}, {
+						    productName: "Peanut Butter",
+						    merchantID: "56d1cb92480cf02f0f888bd9",
+						    price: 4.18,
+						    days: 14,
+						    alpha: 3,
+						    daysSinceBought: 0
+						}, {
+						    productName: "Nacho Cheese Doritos",
+						    merchantID: "56d1cb92480cf02f0f888bd9",
+						    price: 3.07,
+						    days: 7,
+						    alpha: 2,
+						    daysSinceBought: 0
+						}]
+			var clock = new Clock();
+			var i = 0;
+			var year = setInterval(function(){ 
+				clock.tick();
+				todo.controller.getCompleted(function(data) {
+					console.log(clock.getTime())
+					for (j = 0; j < products.length; j++) {
+						if(patterns[products[j]["productName"]] - products[j]["daysSinceBought"] <= 0 && !inList(products[j]["productName"], data)) 
+						{
+							todo.controller.addItem(products[j]["productName"] + " - " + products[j]["daysSinceBought"] + " days" );
+							products[j]["daysSinceBought"] = 0;
+						}
+						else if(!inList (products[j]["productName"], data)) // not in list
+							products[j]["daysSinceBought"] += 1;
+					}
+				i+=1
+				if(i > 365) clearInterval(year);
+				});
+				
+			}, 1000);
+
+			function inList (name, data) {
+				for(x = 0; x < data.length; x++)
+				{
+					if(data[x]["title"].indexOf(name) >= 0)
+						return true;
+				}
+				return false
+			}
+
+		</script>
+	</body>
+</html>
