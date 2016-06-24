@@ -6,16 +6,30 @@
 		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
 		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
 		<style type="text/css">
-		.header
+		body
 		{
-/*			line-height: 10em;
-			width: 1000px;
-			margin-left: 20px;
-			margin-top: 10px;*/
+			background-color: lightblue;
 
 		}
-
-
+		h1
+		{
+			font-weight: bold;
+		}
+		.reset
+		{
+			color:white;
+			background-color: gray;
+			font-size: 20px;
+			border: 1px solid blue;
+			margin-left: auto;
+			margin-right: auto;
+			width: 200px;
+			display: block;
+		}
+		.reset hover
+		{
+			background-color: green;
+		}
 		</style>
 	</head>`
 	<body>
@@ -45,6 +59,7 @@
 				<button class="clear-completed">Clear completed</button>
 			</footer>
 		</section>
+		<button class="reset" onclick="reset()" type="button">Restart Simulation</button>
 		<footer class="info">
 			<p>Double-click to edit a todo</p>
 			<p>Created by <a href="http://twitter.com/oscargodson">Oscar Godson</a></p>
@@ -59,7 +74,7 @@
 		<script src="js/view.js"></script>
 		<script src="js/controller.js"></script>
 		<script src="js/app.js"></script>
-		<script> 
+		<script>
 
 			var patterns = { 'Gallon of Water': 2,
 							  'Milk': 6,
@@ -176,12 +191,12 @@
 						}]
 			var clock = new Clock();
 			var i = 0;
-			var year = setInterval(function(){ 
+			var year = setInterval(function(){
 				clock.tick();
 				todo.controller.getCompleted(function(data) {
 					console.log(clock.getTime())
 					for (j = 0; j < products.length; j++) {
-						if(patterns[products[j]["productName"]] - products[j]["daysSinceBought"] <= 0 && !inList(products[j]["productName"], data)) 
+						if(patterns[products[j]["productName"]] - products[j]["daysSinceBought"] <= 0 && !inList(products[j]["productName"], data))
 						{
 							todo.controller.addItem(products[j]["productName"] + " - " + products[j]["daysSinceBought"] + " days" );
 							products[j]["daysSinceBought"] = 0;
@@ -192,7 +207,7 @@
 				i+=1
 				if(i > 365) clearInterval(year);
 				});
-				
+
 			}, 1000);
 
 			function inList (name, data) {
@@ -202,6 +217,12 @@
 						return true;
 				}
 				return false
+			}
+
+			function reset()
+			{
+				todo.model.removeAll();
+				location.reload();
 			}
 
 		</script>
